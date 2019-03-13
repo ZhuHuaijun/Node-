@@ -18,7 +18,7 @@ Node调试方法有很多种，在网上可以查到很多（参考 [调试 - �
 
 ### 使用chrome调试工具调试
 
-2、打开chrome浏览器，在url中输入 `chrome://inspect`，然后会看到如下界面。
+打开chrome浏览器，在url中输入 `chrome://inspect`，然后会看到如下界面。
 
 ![img](img.png)
 
@@ -30,12 +30,22 @@ Node调试方法有很多种，在网上可以查到很多（参考 [调试 - �
 
 ### 调试node命令行工具
 
-对于node命令行工具也可以通过以上方法进行调试。只需要将文件地址换成对应的命令行入口文件地址即可。例如运行调试webpack命令，可以找到webpack命令行入口地址。比如我的webpack入口文件地址在目录
+对于node命令行工具也可以通过以上方法进行调试。只需要将文件地址换成对应的命令行入口文件地址即可。例如运行调试webpack命令，可以找到webpack命令行入口地址。比如我的webpack入口文件地址在
 
- `/usr/local/lib/node_modules/webpack/bin`
+`/usr/local/lib/node_modules/webpack/bin`
 
 所以可以运行命令来启用检查器：
 
 `node --inspect-brk /usr/local/lib/node_modules/webpack/bin/webpack.js`
 
+这里也提供另外一种方法启用检查器。修改开头一行指定脚本的解释程序，添加调试参数`--inspect-brk`。
+
+![img3](img3.png)
+
+然后再运行webpack命令的时候就会启用检查器。
+
 后续调试方法跟之前一致。
+
+### 值得注意的地方
+
+这种方法只能用于调试一个进程，当node使用子进程的时候，只有当前进程关联的代码会启用检查器。如果需要调试子进程，需要直接调试子进程关联的代码。
